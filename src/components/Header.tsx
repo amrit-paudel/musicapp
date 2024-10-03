@@ -1,11 +1,19 @@
 
 
-import React from 'react';
+import React, { useState }  from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons'; // Use react-native-vector-icons
-
+import AccountOverlay from "../components/AccountOverlay"
 
 const Header = () => {
+
+    const [overlayVisible, setOverlayVisible] = useState(false);
+
+    const toggleOverlay = () => {
+        setOverlayVisible(!overlayVisible);
+    };
+
+
     return (
         <View style={styles.headerContainer}>
             {/* App Name */}
@@ -19,7 +27,7 @@ const Header = () => {
                 </TouchableOpacity> */}
                 
                 {/* Account Icon */}
-                <TouchableOpacity style={styles.icon}>
+                <TouchableOpacity style={styles.icon} onPress={toggleOverlay}>
 
                     <Image 
                         source={{ uri: 'https://your-image-url-here.com' }} // Placeholder image URL
@@ -28,7 +36,8 @@ const Header = () => {
 
                     <Text style = {styles.accText} >Account</Text>
                 </TouchableOpacity>
-            </View>
+            </View> 
+            <AccountOverlay visible={overlayVisible} onClose={toggleOverlay} />
         </View>
     );
 };
